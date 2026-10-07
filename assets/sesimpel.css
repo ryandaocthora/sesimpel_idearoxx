@@ -1,0 +1,454 @@
+/* ============================================================
+   SESIMPEL BRAND SYSTEM
+   Reusable stylesheet. Drop the whole assets/ folder into a project
+   and link this file. Font paths below are relative to this file,
+   so fonts/ and logo/ must stay as siblings.
+
+     project/
+       assets/
+         sesimpel.css     <- this file
+         fonts/           <- sibling
+         logo/            <- sibling
+       index.html
+
+   Every value here is measured from the source poster, not invented.
+   ============================================================ */
+
+/* ---------- TOKENS ---------- */
+:root {
+  /* Palette. Five colours, no more. */
+  --cream: #F1EADA;
+  --brown: #1A0A00;   /* canonical. The logo file uses #1A0F09, a tolerated variance */
+  --orange: #FFC000;
+  --gold: #F6C23F;    /* the two logotype squares only, never type */
+  --black: #000000;
+  --white: #FFFFFF;   /* paper and screen surface only, not a brand colour */
+
+  --focus: var(--brown);
+  --focus-on-dark: var(--orange);
+
+  /* Type */
+  --font-heading: 'ClashDisplay-Variable', 'ClashDisplay-Bold', system-ui, sans-serif;
+  --font-body: 'PlusJakartaSans-Variable', system-ui, sans-serif;
+
+  /* Scale, calibrated so a 210mm sheet and a 1080px post both read right */
+  --t-caption: 11px;
+  --t-label: 13px;
+  --t-body: 15px;
+  --t-lead: 18px;
+  --t-sub: 22px;
+  --t-head: 30px;
+  --t-dm: 42px;
+  --t-dl: 60px;
+  --t-dxl: 84px;
+
+  --track-tight: -0.02em;
+  --track-wide: 0.05em;
+  --track-wider: 0.1em;
+  --track-widest: 0.18em;
+
+  /* Graphic language */
+  --outline: 2px;
+  --shadow-sm: 4px;
+  --shadow-md: 8px;
+  --shadow-lg: 14px;
+
+  --rot-where: -4deg;
+  --rot-when: 3deg;
+  --rot-label: -2deg;
+
+  --dot-pitch-x: 38px;
+  --dot-pitch-y: 35px;
+  --dot-radius: 1px;
+  --dot-color: rgba(26, 10, 0, 0.34);
+  --dot-color-dark: rgba(241, 234, 218, 0.22);
+
+  --checker-h: 20px;
+  --checker-gap: 6px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 26px;
+  --space-5: 40px;
+  --space-6: 64px;
+}
+
+/* On a 1080px canvas the measured offset shadow is 11px. --shadow-md (8px)
+   reads correctly at poster scale; step up to --shadow-lg on large canvases. */
+
+/* ---------- FONTS ---------- */
+@font-face {
+  font-family: 'ClashDisplay-Variable';
+  src: url('fonts/ClashDisplay-Variable.woff2') format('woff2');
+  font-weight: 200 700; font-display: swap; font-style: normal;
+}
+@font-face {
+  font-family: 'ClashDisplay-Bold';
+  src: url('fonts/ClashDisplay-Bold.woff2') format('woff2');
+  font-weight: 700; font-display: swap; font-style: normal;
+}
+@font-face {
+  font-family: 'ClashDisplay-Semibold';
+  src: url('fonts/ClashDisplay-Semibold.woff2') format('woff2');
+  font-weight: 600; font-display: swap; font-style: normal;
+}
+@font-face {
+  font-family: 'PlusJakartaSans-Variable';
+  src: url('fonts/PlusJakartaSans-Variable.ttf') format('truetype');
+  font-weight: 200 800; font-display: swap; font-style: normal;
+}
+@font-face {
+  font-family: 'PlusJakartaSans-Italic-Variable';
+  src: url('fonts/PlusJakartaSans-Italic-Variable.ttf') format('truetype');
+  font-weight: 200 800; font-display: swap; font-style: italic;
+}
+
+/* ---------- BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--brown);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: var(--track-tight);
+  margin: 0;
+}
+
+p { margin: 0 0 var(--space-2); }
+
+a { color: inherit; }
+
+/* Focus ring. Never remove it. Brown on light, orange on brown. */
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.on-dark :focus-visible,
+.dark :focus-visible { outline-color: var(--focus-on-dark); }
+
+/* ---------- SURFACES ---------- */
+/* Cream with the official dot texture. */
+.canvas {
+  background-color: var(--cream);
+  background-image: radial-gradient(circle at center, var(--dot-color) var(--dot-radius), transparent calc(var(--dot-radius) + 0.1px));
+  background-size: var(--dot-pitch-x) var(--dot-pitch-y);
+}
+.canvas--dark {
+  background-color: var(--brown);
+  color: var(--cream);
+  background-image: radial-gradient(circle at center, var(--dot-color-dark) var(--dot-radius), transparent calc(var(--dot-radius) + 0.1px));
+}
+.canvas--orange { background-color: var(--orange); color: var(--brown); background-image: none; }
+
+/* ---------- EYEBROW ---------- */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  font-family: var(--font-body);
+  font-size: var(--t-label);
+  font-weight: 700;
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0 0 0.6em;
+}
+.eyebrow::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
+  background: var(--orange);
+}
+.canvas--orange .eyebrow::before,
+.panel--orange .eyebrow::before { background: var(--brown); }
+
+/* ---------- SLAB ---------- */
+.slab {
+  display: inline-block;
+  padding: 0.18em 0.5em 0.22em;
+  background: var(--orange);
+  color: var(--brown);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: var(--track-tight);
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown);
+}
+.slab--dark { background: var(--brown); color: var(--orange); }
+
+/* ---------- CHECKER STRIP ---------- */
+.checker { display: flex; gap: var(--checker-gap); height: var(--checker-h); }
+.checker > span { flex: 1 1 0; min-width: 0; background: var(--black); }
+.checker > span.hollow { background: transparent; border: 3px solid var(--black); }
+
+/* ---------- DISPLAY TYPE ---------- */
+.display {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--track-tight);
+  line-height: 0.92;
+  margin: 0;
+}
+.display--xl { font-size: var(--t-dxl); }
+.display--l  { font-size: var(--t-dl); }
+.display--m  { font-size: var(--t-dm); }
+.display--s  { font-size: var(--t-head); }
+
+/* Orange highlight behind a word in a headline */
+.mark { background: var(--orange); color: var(--brown); padding: 0 0.08em; }
+
+/* ---------- PANELS ---------- */
+/* Fill + thin outline + hard offset shadow. No blur, ever. */
+.panel {
+  background: var(--cream);
+  color: var(--brown);
+  border: var(--outline) solid var(--brown);
+  box-shadow: var(--shadow-md) var(--shadow-md) 0 var(--brown);
+  padding: var(--space-3);
+}
+.panel--dark {
+  background: var(--brown);
+  color: var(--cream);
+  border-color: var(--brown);
+  box-shadow: var(--shadow-md) var(--shadow-md) 0 var(--orange);
+}
+.panel--orange {
+  background: var(--orange);
+  color: var(--brown);
+  border-color: var(--brown);
+  box-shadow: var(--shadow-md) var(--shadow-md) 0 var(--brown);
+}
+.panel--lg { box-shadow: var(--shadow-lg) var(--shadow-lg) 0 var(--brown); }
+.panel--lg.panel--dark { box-shadow: var(--shadow-lg) var(--shadow-lg) 0 var(--orange); }
+
+/* Rotation. Only these three, only on small cards. Never the logotype,
+   never a headline. */
+.rot-where { transform: rotate(var(--rot-where)); }
+.rot-when  { transform: rotate(var(--rot-when)); }
+.rot-label { transform: rotate(var(--rot-label)); }
+
+/* ---------- EVENT TITLE CARD ---------- */
+.titlecard {
+  background: var(--orange);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-md) var(--shadow-md) 0 var(--black);
+  padding: 9px;
+}
+.titlecard__inner {
+  border: 2px solid var(--black);
+  background: var(--cream);
+  padding: 10px 12px 9px;
+}
+.titlecard__kicker {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0 0 5px;
+}
+.titlecard__kicker em {
+  font-style: normal;
+  background: var(--orange);
+  color: var(--brown);
+  padding: 0 4px;
+  border: 2px solid var(--black);
+  margin-left: 4px;
+}
+.titlecard__head {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 0.9;
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+.titlecard__sub {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--t-label);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  margin: 0;
+}
+.titlecard .checker { margin-top: 10px; }
+
+/* ---------- DETAIL CARD (where / when) ---------- */
+.dcard {
+  border: 2px solid var(--brown);
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown);
+  padding: 12px;
+  font-size: var(--t-label);
+  line-height: 1.4;
+}
+.dcard--dark { background: var(--brown); color: var(--cream); }
+.dcard--cream { background: var(--cream); color: var(--brown); }
+.dcard__value {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.1;
+  letter-spacing: var(--track-tight);
+  display: block;
+  margin-bottom: 6px;
+}
+.dcard--dark .dcard__value { color: var(--orange); }
+.dcard__note { font-weight: 600; margin: 0; }
+
+/* ---------- SPEAKER CARD ---------- */
+.scard {
+  background: var(--orange);
+  border: 2px solid var(--brown);
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown);
+  padding: 12px 14px 14px;
+}
+.scard__name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: var(--track-tight);
+  line-height: 1;
+  margin: 0 0 4px;
+}
+.scard__role { font-weight: 500; font-size: var(--t-label); margin: 0 0 10px; }
+.scard__bar {
+  height: 18px;
+  background: var(--cream);
+  border: 2px solid var(--brown);
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown);
+}
+
+/* ---------- PRICE CARD ---------- */
+.pcard {
+  background: var(--brown);
+  color: var(--cream);
+  border: 2px solid var(--brown);
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--orange);
+  padding: 14px;
+}
+.pcard__price {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.15em;
+  color: var(--orange);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: var(--track-tight);
+  line-height: 0.85;
+  margin: 0 0 14px;
+}
+.pcard__currency { font-size: 19px; align-self: center; }
+.pcard__amount { font-size: 46px; transform: translateY(0.08em); }
+.pcard__lead { font-weight: 500; font-size: var(--t-label); margin: 0 0 10px; }
+.pcard__contact {
+  display: inline-block;
+  background: var(--cream);
+  color: var(--brown);
+  border: 2px solid var(--cream);
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--orange);
+  padding: 7px 10px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: var(--track-wide);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ---------- SUPPORT BLOCK ---------- */
+.support {
+  background: var(--cream);
+  border: 2px solid var(--brown);
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown);
+  padding: 12px;
+}
+.support__inner {
+  background: var(--brown);
+  padding: 14px 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 10px;
+  align-items: center;
+  justify-items: center;
+}
+.support__inner img { max-height: 30px; width: auto; }
+
+/* ---------- DO / DON'T CARD ---------- */
+.rule-card { border: 2px solid var(--brown); background: var(--cream); }
+.rule-card__head {
+  padding: 8px 11px;
+  font-size: var(--t-caption);
+  font-weight: 700;
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  background: var(--brown);
+  color: var(--orange);
+}
+.rule-card__head--dont { background: var(--cream); color: var(--brown); border-bottom: 2px solid var(--brown); }
+.rule-card__body { padding: 11px 12px; font-size: 12.5px; line-height: 1.4; }
+
+/* ---------- MEASURE LIST ---------- */
+.measure-list { list-style: none; margin: 0; padding: 0; font-size: 11.5px; line-height: 1.35; }
+.measure-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  padding: 3px 0;
+  border-bottom: 2px solid rgba(26, 10, 0, 0.16);
+}
+.measure-list b { font-family: var(--font-heading); font-weight: 700; white-space: nowrap; }
+.canvas--dark .measure-list li { border-bottom-color: rgba(241, 234, 218, 0.25); }
+
+/* ---------- CALLOUT ---------- */
+.callout {
+  border: 2px solid var(--brown);
+  border-left-width: 8px;
+  background: rgba(255, 192, 0, 0.16);
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.callout strong { display: block; margin-bottom: 2px; }
+
+/* ---------- GRIDS ---------- */
+.grid { display: grid; gap: var(--space-3); }
+.grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* ---------- SCREEN GUTTERS ---------- */
+@media screen and (max-width: 900px) {
+  .grid--3, .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media screen and (max-width: 620px) {
+  .grid--2, .grid--3, .grid--4 { grid-template-columns: minmax(0, 1fr); }
+  .titlecard__head { font-size: 26px; }
+  .scard__name { font-size: 22px; }
+  .pcard__amount { font-size: 40px; }
+}
+
+/* ---------- PRINT ---------- */
+@page { size: A4 portrait; margin: 0; }
+@media print {
+  body { background: #fff; }
+  *, *::before, *::after {
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+  .no-print { display: none !important; }
+}

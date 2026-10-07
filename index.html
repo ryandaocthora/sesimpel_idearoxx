@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Idea at Roxx #13: DaVinci Resolve Basic Edit Workflow</title>
+<meta name="description" content="Idea at Roxx #13: DaVinci Resolve Basic Edit Workflow. Webinar live 3 jam+, deck materi, replay recording akses seumur hidup. Jumat 23 Oktober '26, via Google Meet. IDR 200K.">
+<link rel="icon" href="assets/logo/logo-square.png">
+<link rel="stylesheet" href="assets/sesimpel.css">
+<style>
+/* ---------------------------------------------------------------
+   Landing page layout. Built on top of assets/sesimpel.css.
+   The poster keeps its components; only the arrangement changes.
+   --------------------------------------------------------------- */
+
+.band { position: relative; }
+.wrap { width: 100%; max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+.band--dark {
+  background-color: var(--brown);
+  background-image: radial-gradient(circle at center, var(--dot-color-dark) var(--dot-radius), transparent calc(var(--dot-radius) + 0.1px));
+  background-size: var(--dot-pitch-x) var(--dot-pitch-y);
+  color: var(--cream);
+  padding: 56px 0;
+}
+.band--orange { background: var(--orange); color: var(--brown); padding: 56px 0; }
+.band--pad { padding: 56px 0; }
+.band--tight { padding: 34px 0; }
+
+/* Headline used by every section, stepped down for a 720px column. */
+.h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--track-tight);
+  line-height: 0.95;
+  font-size: clamp(28px, 6.2vw, 42px);
+  margin: 0 0 18px;
+}
+.lead { font-size: var(--t-lead); line-height: 1.55; margin: 0 0 18px; }
+.note { font-size: var(--t-label); font-weight: 500; line-height: 1.5; margin: 0; }
+figure { margin: 0; }
+
+/* Square bullet list. The orange square replaces every icon. */
+.bullets { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.bullets li { display: grid; grid-template-columns: 1em 1fr; gap: 0.7em; align-items: start; }
+.bullets li::before { content: ""; width: 1em; height: 1em; background: var(--orange); margin-top: 0.32em; }
+.band--dark .bullets li::before { background: var(--orange); }
+.band--orange .bullets li::before { background: var(--brown); }
+.pcard .bullets { gap: 10px; font-size: var(--t-label); font-weight: 500; }
+
+/* Button. Square, hard offset shadow, hover only. */
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: var(--track-wider);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 24px;
+  background: var(--orange);
+  color: var(--brown);
+  border: 2px solid var(--brown);
+  box-shadow: 6px 6px 0 var(--brown);
+}
+.btn:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--brown); }
+.btn--dark { background: var(--brown); color: var(--orange); box-shadow: 6px 6px 0 var(--orange); }
+.btn--dark:hover { box-shadow: 3px 3px 0 var(--orange); }
+.btn--wide { display: block; text-align: center; }
+.fineprint { font-size: var(--t-label); font-weight: 600; margin: 16px 0 0; }
+
+/* Hero */
+.hero { padding: 34px 0 0; }
+.hero__logo { max-width: 300px; margin: 0 auto 34px; }
+.hero .titlecard__head { font-size: clamp(46px, 9vw, 84px); line-height: 0.88; }
+.hero .titlecard__sub { font-size: clamp(13px, 2vw, 17px); letter-spacing: var(--track-wide); }
+.hero__lead { max-width: 38ch; }
+
+/* Where / when cards */
+.meta { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 26px; margin: 0 0 40px; }
+
+/* Promise moment */
+.promise-type {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--track-tight);
+  line-height: 0.98;
+  font-size: clamp(32px, 7.4vw, 54px);
+  margin: 0 0 26px;
+}
+.promise .checker { margin-top: 6px; }
+
+/* Media: GIF frames */
+.media-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.gif-frame {
+  margin: 0;
+  border: 2px solid var(--brown);
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown);
+  background: var(--brown);
+}
+.gif-frame img { width: 100%; height: auto; display: block; }
+.band--dark .gif-frame { border-color: var(--orange); box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--orange); }
+
+/* Client logos. White logos sit in a brown field, all shown, no scroll. */
+.clients {
+  margin-top: 26px;
+  background: var(--brown);
+  border: 2px solid var(--brown);
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown);
+  padding: 20px 16px;
+}
+.clients__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 14px;
+  align-items: center;
+  justify-items: center;
+}
+.clients__grid img {
+  max-width: 100%;
+  width: 110px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Awards. White laurels sit on the brown band, all shown, no scroll. */
+.awards { margin-top: 6px; }
+.awards__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: center;
+  justify-items: center;
+}
+.awards__grid img {
+  width: 100%;
+  max-width: 170px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+/* Speaker */
+.speaker-grid { display: grid; grid-template-columns: 0.85fr 1fr; gap: 26px; align-items: start; }
+.speaker-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid var(--brown);
+  box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown);
+}
+
+/* Curriculum */
+.curriculum { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; align-items: start; }
+.modules { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.modules li { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 14px; font-weight: 600; font-size: var(--t-body); line-height: 1.3; }
+.modules__num {
+  width: 34px; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--orange); color: var(--brown);
+  font-family: var(--font-heading); font-weight: 700; font-size: 16px;
+  box-shadow: 3px 3px 0 var(--brown);
+}
+.subhead {
+  font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+  letter-spacing: var(--track-tight); line-height: 1; font-size: var(--t-sub);
+  margin: 0 0 16px;
+}
+
+/* Pricing */
+.price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+
+/* FAQ, native disclosure, real toggle, keyboard friendly */
+.faq { display: grid; gap: 16px; }
+.faq details { border: 2px solid var(--brown); box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown); background: var(--cream); }
+.faq summary {
+  list-style: none; cursor: pointer; padding: 14px 16px;
+  font-weight: 700; font-size: var(--t-body);
+  display: grid; grid-template-columns: 1em 1fr auto; gap: 0.7em; align-items: center;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::before { content: ""; width: 1em; height: 1em; background: var(--orange); }
+.faq summary::after { content: "+"; font-family: var(--font-heading); font-size: 22px; line-height: 1; color: var(--brown); }
+.faq details[open] summary::after { content: "\2212"; }
+.faq p { margin: 0; padding: 0 16px 16px calc(16px + 1em + 0.7em); line-height: 1.55; }
+
+/* Footer */
+.footer { background: var(--brown); color: var(--cream); padding: 44px 0 40px; }
+.footer__logo { max-width: 240px; margin: 0 0 20px; }
+.footer a { color: var(--orange); font-weight: 700; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Sticky mobile CTA */
+.sticky-cta {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: none; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--brown); border-top: 2px solid var(--orange);
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+}
+.sticky-cta__price { color: var(--orange); font-family: var(--font-heading); font-weight: 700; font-size: 22px; letter-spacing: var(--track-tight); }
+.sticky-cta .btn { padding: 12px 16px; font-size: 13px; box-shadow: 4px 4px 0 var(--orange); }
+.sticky-cta .btn:hover { box-shadow: 2px 2px 0 var(--orange); }
+
+@media (max-width: 620px) {
+  .band--pad, .band--dark, .band--orange { padding: 40px 0; }
+  .hero__lead { max-width: none; }
+  .curriculum, .price-grid, .meta, .media-2, .speaker-grid { grid-template-columns: 1fr; }
+  .hero__logo { max-width: 230px; margin-bottom: 26px; }
+  .clients__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .awards__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .awards__grid img { max-width: 100%; }
+  .sticky-cta { display: flex; }
+  body { padding-bottom: 76px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body class="canvas">
+
+<!-- ============================ HERO ============================ -->
+<header class="band hero">
+  <div class="wrap">
+    <img class="hero__logo" src="assets/logo/logotype-colored.png" alt="SESIMPEL by Film Roxx">
+
+    <div class="titlecard">
+      <div class="titlecard__inner">
+        <p class="titlecard__kicker">Idea at Roxx<em>#13</em></p>
+        <p class="titlecard__head">DaVinci<br>Resolve</p>
+        <p class="titlecard__sub">Basic Edit Workflow</p>
+      </div>
+      <div class="checker" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span class="hollow"></span><span class="hollow"></span>
+        <span class="hollow"></span><span class="hollow"></span>
+        <span class="hollow"></span><span class="hollow"></span>
+      </div>
+    </div>
+
+    <p class="lead hero__lead" style="margin-top:30px">Tiga jam membongkar workflow edit di DaVinci Resolve: dari footage masuk, cut, sampai export siap kirim.</p>
+  </div>
+</header>
+
+<!-- ========================== THE PROBLEM ======================= -->
+<section class="band band--dark band--pad">
+  <div class="wrap">
+    <p class="eyebrow">The problem</p>
+    <h2 class="h2">Masalahnya jarang di skill, sering di workflow</h2>
+    <ul class="bullets">
+      <li>Footage menumpuk, tapi belum mulai edit waktu kamu sudah habis buat nyari file.</li>
+      <li>Timeline berantakan, jadi revisi kecil harus bongkar ulang.</li>
+      <li>Bingung urutan kerjanya: proxy, sync audio, cut, color, mana yang dulu.</li>
+      <li>Export lama, dan hasil di preview berbeda dengan hasil akhirnya.</li>
+      <li>Project lama susah dibuka lagi karena struktur folder tidak jalan.</li>
+    </ul>
+    <p class="lead" style="margin-top:24px;margin-bottom:0">Idea at Roxx #13 membongkar alur kerjanya dari awal, langkah demi langkah.</p>
+  </div>
+</section>
+
+<!-- =========================== PROMISE ========================== -->
+<section class="band band--pad promise">
+  <div class="wrap">
+    <h2 class="promise-type">Kita bongkar <span class="mark">workflow DaVinci Resolve</span></h2>
+    <p class="lead">Biar kamu bisa bikin karya yang luar biasa. Dari menyiapkan project sampai export, langkahnya dibongkar satu per satu.</p>
+    <div class="checker" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span class="hollow"></span><span class="hollow"></span>
+      <span class="hollow"></span><span class="hollow"></span>
+      <span class="hollow"></span><span class="hollow"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== SELECTED WORK ======================= -->
+<section class="band band--dark band--pad">
+  <div class="wrap">
+    <p class="eyebrow">Selected work</p>
+    <h2 class="h2">Karya dari alur kerja ini</h2>
+    <p class="lead" style="max-width:52ch">Karya yang diproduksi Rifki di Film Roxx dengan alur kerja yang akan kita bongkar di sesi #13.</p>
+    <div class="media-2">
+      <figure>
+        <div class="gif-frame">
+          <img src="assets/gif/sample-work-1.gif" alt="Contoh animasi karya 1" width="426" height="240">
+        </div>
+
+      </figure>
+      <figure>
+        <div class="gif-frame">
+          <img src="assets/gif/sample-work-2.gif" alt="Contoh animasi karya 2" width="1138" height="640">
+        </div>
+
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== SPEAKER ========================== -->
+<section class="band band--pad">
+  <div class="wrap">
+    <p class="eyebrow">Speaker</p>
+    <div class="speaker-grid">
+      <img class="speaker-img" src="assets/img/rifky-fullbody.jpg" alt="Rifki Ramadhan" width="450" height="600">
+      <div>
+        <div class="scard">
+          <p class="scard__name">Rifki Ramadhan</p>
+          <p class="scard__role">Post-Production Supervisor at Film Roxx</p>
+          <div class="scard__bar"></div>
+        </div>
+        <p class="note" style="margin-top:20px">Rifki menangani post-production untuk beberapa luxury brand dan perusahaan multinasional.</p>
+      </div>
+    </div>
+
+    <p class="eyebrow" style="margin-top:38px">Clients</p>
+    <div class="clients">
+      <div class="clients__grid">
+        <img src="assets/img/client/Bvlgari_Resort_Bali_white_transparent.png" alt="Bvlgari Resort Bali" width="2016" height="660">
+        <img src="assets/img/client/HRH%20Bali%20-%20White%20Logo.png" alt="HRH Bali" width="2357" height="1733">
+        <img src="assets/img/client/JUMEIRAH_LOGO_white_transparent.png" alt="Jumeirah" width="1280" height="358">
+        <img src="assets/img/client/RAFFLES.png" alt="Raffles" width="1865" height="1461">
+        <img src="assets/img/client/Ritz%20Calton.png" alt="Ritz Carlton" width="589" height="300">
+        <img src="assets/img/client/W%20Bali.png" alt="W Bali" width="2480" height="1748">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== AWARDS =========================== -->
+<section class="band band--dark band--pad">
+  <div class="wrap">
+    <p class="eyebrow">Awards</p>
+    <div class="awards">
+      <div class="awards__grid">
+        <img src="assets/img/laurel/official%20selection.png" alt="Official Selection, Terres Travel Festival 2026" width="2000" height="2000">
+        <img src="assets/img/laurel/Winner%20Koka.png" alt="Winner, Japan Koka 2026" width="2000" height="2000">
+        <img src="assets/img/laurel/winner%20terres_White.png" alt="Winner Silver in Tourism Service, Terres Travel Festival 2026" width="2000" height="2000">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= CURRICULUM ========================= -->
+<section class="band band--pad">
+  <div class="wrap">
+    <p class="eyebrow">What you will get</p>
+    <h2 class="h2">Materi sesi #13</h2>
+    <div class="curriculum">
+      <div>
+        <p class="subhead">Yang dibahas</p>
+        <!-- DRAFT: daftar modul menunggu konfirmasi Rifki. -->
+        <ol class="modules">
+          <li><span class="modules__num">01</span> Menyiapkan project dan struktur folder</li>
+          <li><span class="modules__num">02</span> Import media, proxy, dan playback</li>
+          <li><span class="modules__num">03</span> Cut, trim, dan menyusun cerita</li>
+          <li><span class="modules__num">04</span> Audio dasar dan sinkronisasi</li>
+          <li><span class="modules__num">05</span> Primary color correction</li>
+          <li><span class="modules__num">06</span> Export preset per platform</li>
+        </ol>
+      </div>
+      <div>
+        <p class="subhead">Yang bakal kamu pahamin</p>
+        <ul class="bullets">
+          <li>Mengatur project dan folder supaya revisi tidak bongkar ulang.</li>
+          <li>Memilih kapan pakai proxy dan kapan tidak.</li>
+          <li>Menyusun cut yang rapi dari footage mentah.</li>
+          <li>Merapikan audio dasar.</li>
+          <li>Export sesuai kebutuhan tiap platform.</li>
+          <li>Workflow editing dari import sampai export.</li>
+          <li>Cutting, color grading, sound design, dan basic Fusion.</li>
+          <li>Perbedaan Premiere Pro dan CapCut: kapan pakai yang mana.</li>
+          <li>Demo live: bikin video 10-15 detik dari awal pakai footage yang disiapin.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FAQ ============================ -->
+<section class="band band--pad">
+  <div class="wrap">
+    <p class="eyebrow">FAQ</p>
+    <h2 class="h2">Pertanyaan yang sering masuk</h2>
+
+    <div class="faq">
+      <details open>
+        <summary>Saya pemula total, apa bisa ikut?</summary>
+        <p>Bisa banget. Sesi ini dimulai dari workflow dasar, jadi yang perlu kamu punya cuma laptop yang sudah terpasang DaVinci Resolve.</p>
+      </details>
+      <details>
+        <summary>Apakah wajib pakai DaVinci Resolve versi berbayar?</summary>
+        <p>Tidak. Versi gratis sudah cukup.</p>
+      </details>
+      <details>
+        <summary>Kalau saya tidak bisa hadir, ada rekaman?</summary>
+        <p>Ya, rekaman bisa kamu akses paling lambat H+7 setelah event.</p>
+      </details>
+      <details>
+        <summary>Sesi pakai bahasa apa?</summary>
+        <p>Bahasa Indonesia.</p>
+      </details>
+      <details>
+        <summary>Bisa tanya soal project saya sendiri?</summary>
+        <p>Sesi akan lebih banyak fokus ke pertanyaan yang bisa membantu semua audiens secara keseluruhan.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= REGISTRATION ======================= -->
+<section class="band band--pad" id="daftar">
+  <div class="wrap">
+    <p class="eyebrow">The details</p>
+    <h2 class="h2">Amankan kursimu</h2>
+
+    <div class="meta">
+      <div class="dcard dcard--dark rot-where">
+        <p class="eyebrow">Where</p>
+        <span class="dcard__value">Google Meet</span>
+        <p class="dcard__note">Sesi online, ikut dari laptop kamu sendiri.</p>
+      </div>
+      <div class="dcard dcard--cream rot-when">
+        <p class="eyebrow">When</p>
+        <span class="dcard__value"><span class="mark">Jumat, 23 Oktober &#8217;26</span></span>
+        <p class="dcard__note">15:00 - 18:00 WITA</p>
+      </div>
+    </div>
+
+    <div class="price-grid">
+      <div class="pcard">
+        <p class="eyebrow">More details</p>
+        <p class="pcard__price">
+          <span class="pcard__currency">IDR</span><span class="pcard__amount">200K</span>
+        </p>
+        <ul class="bullets">
+          <li>Webinar Live: DaVinci Resolve Basic Edit Workflow (3 jam+)</li>
+          <li>Deck Materi Basic Edit Workflow</li>
+          <li>Replay Recording (Akses Seumur Hidup)</li>
+        </ul>
+      </div>
+      <div>
+        <p class="lead">Pembayaran diproses lewat Mayar.id.</p>
+        <!-- TODO: slot embed checkout Mayar.id dipasang di sini saat siap. -->
+        <div id="mayar-checkout"></div>
+        <!-- TODO: ganti href ke link checkout Mayar.id saat tersedia. -->
+        <a class="btn btn--wide" href="https://wa.me/628973975127?text=Saya%20mau%20daftar%20Idea%20at%20Roxx%20%2313" target="_blank" rel="noopener">Daftar sesi #13</a>
+        <p class="fineprint">Pendaftaran ditutup saat kuota terpenuhi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ========================== -->
+<footer class="footer">
+  <div class="wrap">
+    <img class="footer__logo" src="assets/logo/logotype-white.png" alt="SESIMPEL by Film Roxx">
+    <p class="note" style="margin:0 0 6px">Idea at Roxx #13: DaVinci Resolve Basic Edit Workflow</p>
+    <p class="note" style="margin:0 0 18px">Jumat, 23 Oktober &#8217;26, 15:00 - 18:00 WITA, via Google Meet.</p>
+    <p class="note" style="margin:0">Pendaftaran: <a href="https://wa.me/628973975127" target="_blank" rel="noopener">+62 897-3975-127</a> &middot; <a href="mailto:ryanda.octhora@filmroxx.com">ryanda.octhora@filmroxx.com</a></p>
+  </div>
+</footer>
+
+<!-- ======================= STICKY MOBILE CTA ==================== -->
+<div class="sticky-cta">
+  <span class="sticky-cta__price">IDR 200K</span>
+  <a class="btn" href="https://wa.me/628973975127?text=Saya%20mau%20daftar%20Idea%20at%20Roxx%20%2313" target="_blank" rel="noopener">Daftar #13</a>
+</div>
+
+</body>
+</html>
