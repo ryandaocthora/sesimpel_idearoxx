@@ -49,27 +49,6 @@ figure { margin: 0; }
 .band--orange .bullets li::before { background: var(--brown); }
 .pcard .bullets { gap: 10px; font-size: var(--t-label); font-weight: 500; }
 
-/* Button. Square, hard offset shadow, hover only. */
-.btn {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: var(--track-wider);
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 15px 24px;
-  background: var(--orange);
-  color: var(--brown);
-  border: 2px solid var(--brown);
-  box-shadow: 6px 6px 0 var(--brown);
-}
-.btn:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--brown); }
-.btn--dark { background: var(--brown); color: var(--orange); box-shadow: 6px 6px 0 var(--orange); }
-.btn--dark:hover { box-shadow: 3px 3px 0 var(--orange); }
-.btn--wide { display: block; text-align: center; }
-.fineprint { font-size: var(--t-label); font-weight: 600; margin: 16px 0 0; }
-
 /* Hero */
 .hero { padding: 34px 0 0; }
 .hero__logo { max-width: 300px; margin: 0 auto 34px; }
@@ -169,9 +148,6 @@ figure { margin: 0; }
   margin: 0 0 16px;
 }
 
-/* Pricing */
-.price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
-
 /* FAQ, native disclosure, real toggle, keyboard friendly */
 .faq { display: grid; gap: 16px; }
 .faq details { border: 2px solid var(--brown); box-shadow: var(--shadow-sm) var(--shadow-sm) 0 var(--brown); background: var(--cream); }
@@ -186,37 +162,14 @@ figure { margin: 0; }
 .faq details[open] summary::after { content: "\2212"; }
 .faq p { margin: 0; padding: 0 16px 16px calc(16px + 1em + 0.7em); line-height: 1.55; }
 
-/* Footer */
-.footer { background: var(--brown); color: var(--cream); padding: 44px 0 40px; }
-.footer__logo { max-width: 240px; margin: 0 0 20px; }
-.footer a { color: var(--orange); font-weight: 700; text-decoration: none; }
-.footer a:hover { text-decoration: underline; }
-
-/* Sticky mobile CTA */
-.sticky-cta {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
-  display: none; align-items: center; justify-content: space-between; gap: 12px;
-  background: var(--brown); border-top: 2px solid var(--orange);
-  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-}
-.sticky-cta__price { color: var(--orange); font-family: var(--font-heading); font-weight: 700; font-size: 22px; letter-spacing: var(--track-tight); }
-.sticky-cta .btn { padding: 12px 16px; font-size: 13px; box-shadow: 4px 4px 0 var(--orange); }
-.sticky-cta .btn:hover { box-shadow: 2px 2px 0 var(--orange); }
-
 @media (max-width: 620px) {
   .band--pad, .band--dark, .band--orange { padding: 40px 0; }
   .hero__lead { max-width: none; }
-  .curriculum, .price-grid, .meta, .media-2, .speaker-grid { grid-template-columns: 1fr; }
+  .curriculum, .meta, .media-2, .speaker-grid { grid-template-columns: 1fr; }
   .hero__logo { max-width: 230px; margin-bottom: 26px; }
   .clients__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .awards__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .awards__grid img { max-width: 100%; }
-  .sticky-cta { display: flex; }
-  body { padding-bottom: 76px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .btn:hover { transform: none; }
 }
 </style>
 </head>
@@ -432,45 +385,20 @@ figure { margin: 0; }
       </div>
     </div>
 
-    <div class="price-grid">
-      <div class="pcard">
-        <p class="eyebrow">More details</p>
-        <p class="pcard__price">
-          <span class="pcard__currency">IDR</span><span class="pcard__amount">200K</span>
-        </p>
-        <ul class="bullets">
-          <li>Webinar Live: DaVinci Resolve Basic Edit Workflow (3 jam+)</li>
-          <li>Deck Materi Basic Edit Workflow</li>
-          <li>Replay Recording (Akses Seumur Hidup)</li>
-        </ul>
-      </div>
-      <div>
-        <p class="lead">Pembayaran diproses lewat Mayar.id.</p>
-        <!-- TODO: slot embed checkout Mayar.id dipasang di sini saat siap. -->
-        <div id="mayar-checkout"></div>
-        <!-- TODO: ganti href ke link checkout Mayar.id saat tersedia. -->
-        <a class="btn btn--wide" href="https://wa.me/628973975127?text=Saya%20mau%20daftar%20Idea%20at%20Roxx%20%2313" target="_blank" rel="noopener">Daftar sesi #13</a>
-        <p class="fineprint">Pendaftaran ditutup saat kuota terpenuhi.</p>
-      </div>
+    <div class="pcard">
+      <p class="eyebrow">More details</p>
+      <p class="pcard__price">
+        <span class="pcard__currency">IDR</span><span class="pcard__amount">200K</span>
+      </p>
+      <ul class="bullets">
+        <li>Webinar Live: DaVinci Resolve Basic Edit Workflow (3 jam+)</li>
+        <li>Deck Materi Basic Edit Workflow</li>
+        <li>Replay Recording (Akses Seumur Hidup)</li>
+      </ul>
     </div>
+    <!-- TODO: slot embed checkout Mayar.id dipasang di sini saat siap. -->
   </div>
 </section>
-
-<!-- ============================ FOOTER ========================== -->
-<footer class="footer">
-  <div class="wrap">
-    <img class="footer__logo" src="assets/logo/logotype-white.png" alt="SESIMPEL by Film Roxx">
-    <p class="note" style="margin:0 0 6px">Idea at Roxx #13: DaVinci Resolve Basic Edit Workflow</p>
-    <p class="note" style="margin:0 0 18px">Jumat, 23 Oktober &#8217;26, 15:00 - 18:00 WITA, via Google Meet.</p>
-    <p class="note" style="margin:0">Pendaftaran: <a href="https://wa.me/628973975127" target="_blank" rel="noopener">+62 897-3975-127</a> &middot; <a href="mailto:ryanda.octhora@filmroxx.com">ryanda.octhora@filmroxx.com</a></p>
-  </div>
-</footer>
-
-<!-- ======================= STICKY MOBILE CTA ==================== -->
-<div class="sticky-cta">
-  <span class="sticky-cta__price">IDR 200K</span>
-  <a class="btn" href="https://wa.me/628973975127?text=Saya%20mau%20daftar%20Idea%20at%20Roxx%20%2313" target="_blank" rel="noopener">Daftar #13</a>
-</div>
 
 </body>
 </html>
